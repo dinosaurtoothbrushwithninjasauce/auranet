@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuraNet — Decentralized Green Computing & AI Training Network</title>
+    <style>
+        :root {
+            --bg-primary: #0a0f1d;
+            --bg-secondary: #111827;
+            --bg-tertiary: #1f2937;
+            --accent-green: #10b981;
+            --accent-green-hover: #059669;
+            --accent-blue: #3b82f6;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-color: #374151;
+            --card-gradient: linear-gradient(145deg, #111827, #1f2937);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Container Layout */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header / Navbar */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(10, 15, 29, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+        }
+
+        .nav-wrapper {
+            display: table;
+            width: 100%;
+            height: 80px;
+        }
+
+        .logo-box, .nav-box {
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        .logo-box {
+            font-size: 24px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-box span {
+            color: var(--accent-green);
+        }
+
+        .nav-box {
+            text-align: right;
+        }
+
+        .nav-box a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 32px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-box a:hover {
+            color: var(--accent-green);
+        }
+
+        .nav-box .btn-launch {
+            background-color: transparent;
+            border: 1px solid var(--accent-green);
+            color: var(--accent-green);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .nav-box .btn-launch:hover {
+            background-color: var(--accent-green);
+            color: var(--bg-primary);
+        }
+
+        /* Hero Section */
+        section.hero {
+            padding-top: 180px;
+            padding-bottom: 100px;
+            background: radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 50%);
+        }
+
+        .hero-grid {
+            display: table;
+            width: 100%;
+        }
+
+        .hero-left, .hero-right {
+            display: table-cell;
+            vertical-align: middle;
+            width: 50%;
+        }
+
+        .hero-left {
+            padding-right: 48px;
+        }
+
+        .tagline {
+            display: inline-block;
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--accent-green);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -1px;
+            margin-bottom: 24px;
+            color: #ffffff;
+        }
+
+        h1 span {
+            background: linear-gradient(to right, var(--accent-green), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-desc {
+            font-size: 18px;
+            color: var(--text-muted);
+            margin-bottom: 36px;
+        }
+
+        .cta-group .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-green);
+            color: var(--bg-primary);
+            margin-right: 16px;
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-green-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            border-color: var(--text-muted);
+        }
+
+        /* Visual Widget Card in Hero */
+        .hero-right {
+            padding-left: 24px;
+        }
+
+        .widget-card {
+            background: var(--card-gradient);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .widget-header {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+        }
+
+        .widget-title {
+            font-size: 14px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .widget-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-top: 4px;
+        }
+
+        .widget-value span {
+            color: var(--accent-green);
+        }
+
+        /* Global Section Layouts */
+        section {
+            padding: 100px 0;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px auto;
+        }
+
+        .section-header h2 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+
+        /* Multi-column Grid system using table layouts for clean cross-rendering */
+        .grid-3, .grid-2 {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: separate;
+            border-spacing: 20px 0px;
+            margin: 0 -20px;
+        }
+
+        .grid-col {
+            display: table-cell;
+            vertical-align: top;
+        }
+
+        /* Feature Cards */
+        .card {
+            background: var(--card-gradient);
+            border: 1px solid var(--border-color);
+            padding: 32px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(16, 185, 129, 0.4);
+            transform: translateY(-4px);
+        }
+
+        .card-icon {
+            font-size: 28px;
+            margin-bottom: 20px;
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.05);
+            width: 54px;
+            height: 54px;
+            line-height: 54px;
+            text-align: center;
+            border-radius: 8px;
+            color: var(--accent-green);
+        }
+
+        .card h3 {
+            font-size: 20px;
+            color: #ffffff;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Vault Matrices / Tiers styling */
+        .vault-card {
+            background: var(--card-gradient);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 40px 32px;
+            text-align: center;
+            position: relative;
+        }
+
+        .vault-card.popular {
+            border-color: var(--accent-green);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.1);
+        }
+
+        .badge-popular {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--accent-green);
+            color: var(--bg-primary);
+            padding: 4px 14px;
+            font-size: 11px;
+            font-weight: 700;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .vault-tier-title {
+            font-size: 16px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .vault-period {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .vault-multiplier {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px dashed var(--border-color);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+
+        .vault-multiplier .mult-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            display: block;
+        }
+
+        .vault-multiplier .mult-val {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent-green);
+        }
+
+        .vault-features {
+            text-align: left;
+            margin-bottom: 32px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .vault-features li {
+            list-style: none;
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 24px;
+        }
+
+        .vault-features li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent-green);
+            font-weight: bold;
+        }
+
+        .btn-vault {
+            display: block;
+            width: 100%;
+            padding: 12px 0;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: #ffffff;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .vault-card.popular .btn-vault {
+            background-color: var(--accent-green);
+            color: var(--bg-primary);
+            border: none;
+        }
+
+        .vault-card.popular .btn-vault:hover {
+            background-color: var(--accent-green-hover);
+        }
+
+        .btn-vault:hover {
+            border-color: var(--text-muted);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Flow Architecture Section */
+        .flow-container {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 40px;
+        }
+
+        .flow-row {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        .flow-step {
+            display: table-cell;
+            text-align: center;
+            position: relative;
+            padding: 0 16px;
+        }
+
+        .flow-step:not(:last-child)::after {
+            content: "➔";
+            position: absolute;
+            top: 30px;
+            right: -10px;
+            color: var(--border-color);
+            font-size: 20px;
+        }
+
+        .flow-num {
+            width: 44px;
+            height: 44px;
+            line-height: 44px;
+            border-radius: 50%;
+            background-color: rgba(59, 130, 246, 0.1);
+            color: var(--accent-blue);
+            font-weight: 700;
+            margin: 0 auto 16px auto;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .flow-step h4 {
+            font-size: 16px;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .flow-step p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* Interactive Simulator CSS Engine */
+        .sim-box {
+            background: var(--card-gradient);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 40px;
+        }
+
+        .sim-control-group {
+            margin-bottom: 24px;
+        }
+
+        .sim-control-group label {
+            display: block;
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .sim-input {
+            width: 100%;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            padding: 14px;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .sim-select {
+            width: 100%;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            padding: 14px;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 16px;
+            appearance: none;
+            cursor: pointer;
+        }
+
+        .sim-results-box {
+            background: rgba(16, 185, 129, 0.03);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 12px;
+            padding: 32px;
+        }
+
+        .sim-stat-label {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .sim-stat-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--accent-green);
+            margin-bottom: 16px;
+        }
+
+        .sim-breakdown-row {
+            border-top: 1px solid var(--border-color);
+            padding-top: 12px;
+            margin-top: 12px;
+            font-size: 14px;
+        }
+
+        .sim-breakdown-left {
+            float: left;
+            color: var(--text-muted);
+        }
+
+        .sim-breakdown-right {
+            float: right;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        /* Tokenomics Table Layout */
+        .tokenomics-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 24px;
+        }
+
+        .tokenomics-table th, .tokenomics-table td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .tokenomics-table th {
+            background-color: rgba(255,255,255,0.02);
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .tokenomics-table td {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* Footer Element */
+        footer {
+            background-color: #060a13;
+            border-top: 1px solid var(--border-color);
+            padding: 60px 0;
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        footer .footer-logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 16px;
+        }
+
+        footer .footer-logo span {
+            color: var(--accent-green);
+        }
+
+        footer .footer-links {
+            margin-bottom: 24px;
+        }
+
+        footer .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin: 0 12px;
+        }
+
+        footer .footer-links a:hover {
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header>
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo-box">Aura<span>Net</span></div>
+                <div class="nav-box">
+                    <a href="#architecture">How It Works</a>
+                    <a href="#vaults">Yield Matrix</a>
+                    <a href="#simulator">Rewards Estimator</a>
+                    <a href="#tokenomics">Tokenomics</a>
+                    <a href="#app" class="btn-launch">Launch App</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Heroic Layout Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-left">
+                    <div class="tagline">Real-world AI Infrastructure Yield</div>
+                    <h1>Sustainable Wealth via <span>DePIN Resource Cloud</span></h1>
+                    <p class="hero-desc">AuraNet bridges institutional AI high-throughput computing demands with decentralized capital. Lock assets in dynamic multi-frequency vaults to collect regular real-yield payouts natively backed by business computing contracts.</p>
+                    <div class="cta-group">
+                        <a href="#vaults" class="btn btn-primary">Explore Vaults</a>
+                        <a href="#architecture" class="btn btn-secondary">Read Documentation</a>
+                    </div>
+                </div>
+                <div class="hero-right">
+                    <div class="widget-card">
+                        <div class="widget-header">
+                            <div class="widget-title">Total Native Network Revenue Allocated (YTD)</div>
+                            <div class="widget-value">$14,284,910 <span>USDC</span></div>
+                        </div>
+                        <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 6px;">Active Network Core Clusters</div>
+                        <div style="font-size: 16px; font-weight: 600; color: #ffffff; margin-bottom: 20px;">4,812 High-Tier Node Clusters</div>
+                        <div style="background-color: rgba(255,255,255,0.03); padding: 12px; border-radius: 6px; font-size: 12px; border: 1px solid var(--border-color);">
+                            🟢 <strong>Live Audit Trace:</strong> All infrastructure yield payments are systematically distributed via transparent verified algorithmic smart contracts.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Unique System Elements -->
+    <section id="architecture">
+        <div class="container">
+            <div class="section-header">
+                <h2>The AuraNet Revenue Framework</h2>
+                <p>Eliminating inflationary distribution token mechanics. We leverage modern real-world enterprise demands to safely secure algorithmic web3 investment loops.</p>
+            </div>
+            <div class="grid-3">
+                <div class="grid-col">
+                    <div class="card">
+                        <div class="card-icon">⚡</div>
+                        <h3>Real Compute Backing</h3>
+                        <p>We connect enterprise AI firms looking for high-performance training layers directly into zero-emission distributed physical networks. Corporate clients pay in structural stablecoin assets.</p>
+                    </div>
+                </div>
+                <div class="grid-col">
+                    <div class="card">
+                        <div class="card-icon">🔒</div>
+                        <h3>Deflationary Payout Shield</h3>
+                        <p>Dividends are strictly distributed via premium stablecoins ($USDC / $USDT). Your capital token base is entirely shielded from continuous native coin dump inflation mechanics.</p>
+                    </div>
+                </div>
+                <div class="grid-col">
+                    <div class="card">
+                        <div class="card-icon">🛡️</div>
+                        <h3>Treasury Smoothing Shield</h3>
+                        <p>10% of systemic heavy-demand quarter revenue streams are automatically redirected into a multi-sig programmatic smoothing reserve buffer to preserve steady seasonal payouts during compute macro dry spells.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dividend Distribution Timeline Core Engine -->
+    <section id="vaults" style="background-color: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Choose Your Yield Matrix Horizon</h2>
+                <p>Select tailored cryptographic commitments corresponding to your financial liquidity targets. Long term structural storage yields multiplied structural network benefits.</p>
+            </div>
+            <div class="grid-3">
+                <!-- Monthly Vault -->
+                <div class="grid-col">
+                    <div class="vault-card">
+                        <div class="vault-tier-title">The Current Vault</div>
+                        <div class="vault-period">Monthly</div>
+                        <div class="vault-multiplier">
+                            <span class="mult-label">Dividend Weight Multiplier</span>
+                            <span class="mult-val">1.0x</span>
+                        </div>
+                        <ul class="vault-features">
+                            <li>30-Day Contract Commit Lock</li>
+                            <li>Standard base cluster yield distribution</li>
+                            <li>High liquid flexibility parameters</li>
+                            <li>Stablecoin payout delivery windows</li>
+                        </ul>
+                        <a href="#app" class="btn-vault">Select Monthly Vault</a>
+                    </div>
+                </div>
+                <!-- Quarterly Vault -->
+                <div class="grid-col">
+                    <div class="vault-card popular">
+                        <div class="badge-popular">Optimized Yield</div>
+                        <div class="vault-tier-title">The Season Vault</div>
+                        <div class="vault-period">Quarterly</div>
+                        <div class="vault-multiplier">
+                            <span class="mult-label">Dividend Weight Multiplier</span>
+                            <span class="mult-val">1.5x</span>
+                        </div>
+                        <ul class="vault-features">
+                            <li>90-Day Structural Lock Engine</li>
+                            <li>50% bonus yield generation slice</li>
+                            <li>Balanced asset risk-exposure window</li>
+                            <li>Prioritized network allocation cues</li>
+                        </ul>
+                        <a href="#app" class="btn-vault">Select Quarterly Vault</a>
+                    </div>
+                </div>
+                <!-- Annual Vault -->
+                <div class="grid-col">
+                    <div class="vault-card">
+                        <div class="vault-tier-title">The Epoch Vault</div>
+                        <div class="vault-period">Annually</div>
+                        <div class="vault-multiplier">
+                            <span class="mult-label">Dividend Weight Multiplier</span>
+                            <span class="mult-val">2.5x</span>
+                        </div>
+                        <ul class="vault-features">
+                            <li>365-Day Maximalist Secure Lock</li>
+                            <li>150% maximized alpha yield parameters</li>
+                            <li>Full Governance voting weight vectors</li>
+                            <li>Direct Priority Ecosystem Airdrops</li>
+                        </ul>
+                        <a href="#app" class="btn-vault">Select Annual Vault</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Operational Architecture Pipeline Flowchart Visual -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2>The Macro Revenue Execution Pipeline</h2>
+                <p>See exactly how capital forms from external business execution models down into individual yield balances.</p>
+            </div>
+            <div class="flow-container">
+                <div class="flow-row">
+                    <div class="flow-step">
+                        <div class="flow-num">01</div>
+                        <h4>Enterprise Lease</h4>
+                        <p>Corporate B2B AI teams rent physical training hardware compute directly via the AuraNet global protocol.</p>
+                    </div>
+                    <div class="flow-step">
+                        <div class="flow-num">02</div>
+                        <h4>Stable Conversion</h4>
+                        <p>Enterprise payments are secured and settled automatically into verified distributed multi-sig treasury pools.</p>
+                    </div>
+                    <div class="flow-step">
+                        <div class="flow-num">03</div>
+                        <h4>The Matrix Split</h4>
+                        <p>60% is dispatched to vault holders, 30% optimizes operations, 10% secures the smoothing engine buffer.</p>
+                    </div>
+                    <div class="flow-step">
+                        <div class="flow-num">04</div>
+                        <h4>Epoch Drop</h4>
+                        <p>Payout vectors execute directly into client wallets based on selected structural matrix periods.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Mathematical Yield Calculator Engine Simulator -->
+    <section id="simulator" style="background-color: var(--bg-secondary);">
+        <div class="container">
+            <div class="grid-2">
+                <div class="grid-col" style="padding-right: 40px; vertical-align: middle;">
+                    <h2 style="font-size: 36px; font-weight: 700; color: #ffffff; margin-bottom: 20px;">Calculate Your Yield Parameters Instantly</h2>
+                    <p style="color: var(--text-muted); font-size: 16px; margin-bottom: 24px;">Interact live with the network distribution logic. Adjust capital configurations and distribution cycles to model prospective yield metrics across active fiscal targets.</p>
+                    <div style="background-color: rgba(59,130,246,0.05); border: 1px solid rgba(59,130,246,0.2); padding: 20px; border-radius: 8px; font-size: 14px;">
+                        💡 <strong>Compounding Utility:</strong> Toggle the automated open-market compound feature inside the Web3 application dashboard to dynamically elevate baseline network visibility scores.
+                    </div>
+                </div>
+                <div class="grid-col">
+                    <div class="sim-box">
+                        <div class="sim-control-group">
+                            <label for="calc-tokens">Planned Investment Value ($AURA Token Target Base)</label>
+                            <input type="number" id="calc-tokens" class="sim-input" value="10000" oninput="updateSimulator()">
+                        </div>
+                        <div class="sim-control-group">
+                            <label for="calc-tier">Ecosystem Lock Horizon Selection</label>
+                            <select id="calc-tier" class="sim-select" onchange="updateSimulator()">
+                                <option value="1.0">Monthly Vault Tier (1.0x Base Scale)</option>
+                                <option value="1.5" selected>Quarterly Season Vault Tier (1.5x Multiplier)</option>
+                                <option value="2.5">Annual Epoch Vault Tier (2.5x Max Multiplier)</option>
+                            </select>
+                        </div>
+                        <div class="sim-results-box">
+                            <div class="sim-stat-label">Modelled Horizon Payout Expectancy</div>
+                            <div class="sim-stat-value">$<span id="payout-total">1,200</span> <span style="font-size: 16px; color: var(--text-muted); font-weight: normal;">USDC</span></div>
+                            
+                            <div class="sim-breakdown-row clearfix">
+                                <div class="sim-breakdown-left">Ecosystem Base APR Approximation</div>
+                                <div class="sim-breakdown-right"><span id="apr-val">8.00</span>%</div>
+                            </div>
+                            <div class="sim-breakdown-row clearfix">
+                                <div class="sim-breakdown-left">Ecosystem Weighted Performance APR</div>
+                                <div class="sim-breakdown-right" style="color: var(--accent-green);"><span id="weighted-apr-val">12.00</span>%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Token Allocation Specifics Section -->
+    <section id="tokenomics">
+        <div class="container">
+            <div class="section-header">
+                <h2>Cryptographic Allocation Matrix</h2>
+                <p>System token distributions are precisely configured to preserve maximum decentralized network protocol balance.</p>
+            </div>
+            <div style="background: var(--card-gradient); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden;">
+                <table class="tokenomics-table">
+                    <thead>
+                        <tr>
+                            <th>Allocation Strategy Layer</th>
+                            <th>Supply Percentage</th>
+                            <th>Total Tokens ($AURA)</th>
+                            <th>Vesting Schedule Architecture</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="color: #ffffff; font-weight: 600;">Ecosystem Node Operations & DePIN rewards</td>
+                            <td>40%</td>
+                            <td>400,000,000</td>
+                            <td>Programmatic release mapped directly across 60 months</td>
+                        </tr>
+                        <tr>
+                            <td style="color: #ffffff; font-weight: 600;">Dynamic Dividend Vault Subsidies</td>
+                            <td>25%</td>
+                            <td>250,000,000</td>
+                            <td>Locked explicitly inside core distribution automation contracts</td>
+                        </tr>
+                        <tr>
+                            <td style="color: #ffffff; font-weight: 600;">Public Launch Allocation Liquidity</td>
+                            <td>15%</td>
+                            <td>150,000,000</td>
+                            <td>100% Unlocked completely at generation day genesis</td>
+                        </tr>
+                        <tr>
+                            <td style="color: #ffffff; font-weight: 600;">Ecosystem Strategic Development Pools</td>
+                            <td>10%</td>
+                            <td>100,000,000</td>
+                            <td>6-month cliff followed by linear continuous 24-month blocks</td>
+                        </tr>
+                        <tr>
+                            <td style="color: #ffffff; font-weight: 600;">Core Dev Team & System Architects</td>
+                            <td>10%</td>
+                            <td>100,000,000</td>
+                            <td>12-month hard cliff, 36-month strict linear vesting protections</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Simulator JS Logic -->
+    <script>
+        function updateSimulator() {
+            var tokenInput = parseFloat(document.getElementById('calc-tokens').value);
+            var multiplier = parseFloat(document.getElementById('calc-tier').value);
+            
+            if (isNaN(tokenInput) || tokenInput < 0) {
+                tokenInput = 0;
+            }
+
+            var baselineAPR = 8.00; // Baseline network APR model assumption
+            var weightedAPR = baselineAPR * multiplier;
+            var annualizedYieldValue = (tokenInput * (weightedAPR / 100));
+
+            // Adjust display based on lock timeline length selected
+            var displayYield = annualizedYieldValue;
+            if (multiplier === 1.0) {
+                // Monthly presentation slice
+                displayYield = annualizedYieldValue / 12;
+            } else if (multiplier === 1.5) {
+                // Quarterly presentation slice
+                displayYield = annualizedYieldValue / 4;
+            }
+
+            document.getElementById('apr-val').innerText = baselineAPR.toFixed(2);
+            document.getElementById('weighted-apr-val').innerText = weightedAPR.toFixed(2);
+            document.getElementById('payout-total').innerText = displayYield.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        }
+        
+        // Initial execution run setup
+        updateSimulator();
+    </script>
+
+    <!-- Standard Website Structural Footer Elements -->
+    <footer>
+        <div class="container">
+            <div class="footer-logo">Aura<span>Net</span></div>
+            <div class="footer-links">
+                <a href="#architecture">Protocol Architecture</a>
+                <a href="#vaults">Yield Matrices</a>
+                <a href="#simulator">Simulator Matrix</a>
+                <a href="#tokenomics">Tokenomics Matrix</a>
+            </div>
+            <p>© 2026 AuraNet Network DePIN Infrastructure Layer. All Rights Reserved. Operational architecture parameters verified programmatically via on-chain consensus logic.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
+index.html
+Displaying index.html.
