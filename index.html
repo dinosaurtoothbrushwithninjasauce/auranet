@@ -39,6 +39,7 @@
         .mono { font-family: 'JetBrains Mono', monospace; }
         .plus-jakarta { font-family: 'Plus Jakarta Sans', sans-serif; }
         
+        /* Custom scrollbar adjustments for virtual sub-frames */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 3px; }
@@ -174,7 +175,7 @@
                         <div class="space-y-2">
                             <span class="text-[9px] uppercase font-black text-slate-500 tracking-widest block text-left">Network Contract Anchors</span>
                             <div class="space-y-1.5">
-                                <button onclick="addBaseSepolia()" id="addNetworkBtn" class="w-full border border-blue-500/30 text-blue-400 py-2 rounded-lg text-[9px] font-black uppercase tracking-widest hover:bg-blue-500/10 transition-all">Add Base Sepolia Network</button>
+                                <button onclick="addBaseSepolia()" id="addNetworkBtn" disabled class="w-full opacity-30 cursor-not-allowed border border-blue-500/30 text-blue-400 py-2 rounded-lg text-[9px] font-black uppercase tracking-widest hover:bg-blue-500/10 transition-all">Add Base Sepolia Network</button>
                                 <a href="https://sepolia.basescan.org/token/0x7BD58C1fa6fF742218933BA189367077717cf9D1" target="_blank" class="w-full block text-center border border-white/10 text-slate-400 py-2 rounded-lg text-[9px] font-black uppercase tracking-widest hover:bg-white/5 hover:text-white transition-all">View Token Contract</a>
                             </div>
                         </div>
@@ -274,6 +275,7 @@
     </div>
 
     <script>
+        // MOCK INTERVENTIONS SIMULATING INTERNAL VIRTUAL FILE DIRECTORIES
         const VIRTUAL_APPLICATIONS = {
             'project-info': {
                 title: 'Project Info Strategic View',
@@ -293,9 +295,9 @@
                         </header>
                         <main class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                             <div class="glass-panel p-6 rounded-2xl border border-white/5 space-y-2 bg-slate-900/40">
-                                <h3 class="text-xs text-slate-400 font-bold uppercase tracking-wider">Treasury Allocation Vault</h3>
-                                <p id="info-treasury-bal" class="text-2xl font-black font-mono text-blue-400">0</p>
-                                <p id="info-treasury-usd" class="text-[10px] text-slate-500 font-bold">$0.00 USD VALUE</p>
+                                <h3 class="text-xs text-slate-400 font-bold uppercase tracking-wider">Treasury Token Allocation</h3>
+                                <p class="text-2xl font-black font-mono text-blue-400">14,850,000</p>
+                                <p class="text-[10px] text-slate-500 font-bold">$7,239,375 USD VALUE</p>
                             </div>
                             <div class="glass-panel p-6 rounded-2xl border border-white/5 space-y-2 bg-slate-900/40">
                                 <h3 class="text-xs text-slate-400 font-bold uppercase tracking-wider">Your Synchronized Balance</h3>
@@ -306,7 +308,7 @@
                                 <h3 class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-2">Network Vector Pipeline</h3>
                                 <div class="space-y-1.5 text-[10px] text-slate-500 font-mono">
                                     <div class="flex justify-between"><span>BLOCK TARGET:</span><span class="text-slate-300">BASE_SEPOLIA</span></div>
-                                    <div class="flex justify-between"><span>PRICE INDEX:</span><span class="text-slate-300">0.0008 ETH</span></div>
+                                    <div class="flex justify-between"><span>PRICE INDEX:</span><span class="text-slate-300">0.00015 ETH</span></div>
                                 </div>
                             </div>
                         </main>
@@ -336,21 +338,14 @@
                             <div class="glass-panel p-5 rounded-2xl border border-white/5 space-y-4 bg-slate-900/40">
                                 <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Staking Action Controls</h2>
                                 <div id="staking-disabled-mask" class="p-6 bg-slate-950/80 border border-amber-500/20 rounded-xl text-center text-xs text-amber-400 font-medium select-none">
-                                    ⚠️ Action Required: Initialize your wallet instance via the system taskbar dock to engage staking controls.
+                                    ⚠️ Action Required: Initialize your wallet instance via the system taskbar dock to engage staking controls with identical display states.
                                 </div>
                                 <div id="staking-active-controls" class="hidden space-y-4">
-                                    <div class="flex flex-col gap-2">
-                                        <div class="flex gap-2">
-                                            <input type="number" id="staking-input-amt" placeholder="0.00" class="flex-1 bg-black/40 border border-white/10 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-blue-500 font-mono">
-                                            <button onclick="executeStakingAction(true)" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-xs font-black uppercase tracking-wider px-4 rounded-xl transition active:scale-95">Stake</button>
-                                            <button onclick="executeStakingAction(false)" class="bg-slate-800 hover:bg-slate-700 text-xs font-black uppercase tracking-wider px-4 rounded-xl transition active:scale-95">Withdraw</button>
-                                        </div>
-                                        <div class="flex justify-between px-1">
-                                            <p class="text-[10px] text-slate-500 font-mono">Wallet: <span class="text-purple-400 sync-wallet-time">0</span> $TIME</p>
-                                            <p class="text-[10px] text-slate-500 font-mono">Staked: <span id="staking-user-staked" class="text-blue-400">0</span> $TIME</p>
-                                        </div>
-                                        <button onclick="executeStakingCompound()" class="w-full py-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 rounded-xl text-[10px] uppercase font-black tracking-widest transition shadow-lg shadow-purple-500/10">Compound Rewards</button>
+                                    <div class="flex gap-2">
+                                        <input type="number" placeholder="0.00" class="flex-1 bg-black/40 border border-white/10 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-blue-500 font-mono">
+                                        <button class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-xs font-black uppercase tracking-wider px-5 rounded-xl transition active:scale-95">Stake $TIME</button>
                                     </div>
+                                    <p class="text-[10px] text-slate-500 font-mono">Max Available: <span class="text-purple-400 sync-wallet-time">0</span> $TIME</p>
                                 </div>
                             </div>
                             <div class="glass-panel p-5 rounded-2xl border border-white/5 space-y-4 bg-slate-900/40">
@@ -358,11 +353,11 @@
                                 <div class="grid grid-cols-2 gap-4">
                                     <div class="bg-black/40 p-4 rounded-xl border border-white/5 shadow-inner">
                                         <p class="text-[10px] text-slate-500 uppercase font-black tracking-wide">Total Pool Staked</p>
-                                        <p id="staking-pool-total" class="text-xl font-bold font-mono text-blue-400 mt-1">0</p>
+                                        <p class="text-xl font-bold font-mono text-blue-400 mt-1">4,289,150</p>
                                     </div>
                                     <div class="bg-black/40 p-4 rounded-xl border border-white/5 shadow-inner">
-                                        <p class="text-[10px] text-slate-500 uppercase font-black tracking-wide">Your Pending Yield</p>
-                                        <p id="staking-user-rewards" class="text-xl font-bold font-mono text-emerald-400 mt-1">0.00</p>
+                                        <p class="text-[10px] text-slate-500 uppercase font-black tracking-wide">Estimated APY APEX</p>
+                                        <p class="text-xl font-bold font-mono text-emerald-400 mt-1">42.84%</p>
                                     </div>
                                 </div>
                             </div>
@@ -386,24 +381,22 @@
                             </div>
                         </header>
                         <main class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <div class="glass-panel p-5 rounded-2xl border border-white/5 space-y-3 col-span-2 bg-slate-900/40">
+                            <div class="glass-panel p-5 rounded-2xl border border-white/5 space-y-3 col-span-1 md:col-span-2 bg-slate-900/40">
                                 <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Reserve Protocol Balance Ledger</h2>
                                 <div class="bg-black/40 p-4 border border-white/5 rounded-xl font-mono text-sm text-blue-400 flex justify-between items-center shadow-inner">
-                                    <span>Treasury Token Holding:</span>
-                                    <span id="treasury-token-holding" class="font-black">0 $TIME</span>
+                                    <span>Base Network Reserve:</span>
+                                    <span class="font-black">1,425.84 ETH</span>
                                 </div>
                                 <div class="bg-black/40 p-4 border border-white/5 rounded-xl font-mono text-sm text-purple-400 flex justify-between items-center shadow-inner">
-                                    <span>System Reserve Native Value:</span>
-                                    <span id="treasury-eth-holding" class="font-black">0.000 ETH</span>
+                                    <span>System Operations Asset Value:</span>
+                                    <span class="font-black">$4,633,980 USD</span>
                                 </div>
                             </div>
-                            <div class="glass-panel p-5 rounded-2xl border border-white/5 space-y-2 bg-slate-900/40 flex flex-col justify-between">
-                                <div>
-                                    <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Node Telemetry</h2>
-                                    <p class="text-[11px] text-slate-400 leading-relaxed">System parameters sync directly via public Base RPC interface layer nodes.</p>
-                                </div>
-                                <div class="p-2.5 rounded-lg bg-black/50 border border-white/5 text-[9px] font-mono text-slate-500 select-all truncate">
-                                    ROUTING: <span class="text-amber-500 sync-wallet-text">UNRESOLVED</span>
+                            <div class="glass-panel p-5 rounded-2xl border border-white/5 space-y-2 bg-slate-900/40">
+                                <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Auditing Identity</h2>
+                                <p class="text-[11px] text-slate-400 leading-relaxed">Connecting your secure dashboard down below verifies node telemetry logs synchronously.</p>
+                                <div class="p-2.5 rounded-lg bg-black/50 border border-white/5 text-[10px] font-mono text-slate-500 select-all truncate">
+                                    NODE_OWNER: <span class="text-amber-500 sync-wallet-text">UNRESOLVED</span>
                                 </div>
                             </div>
                         </main>
@@ -412,51 +405,28 @@
             'chronos-presale': { title: 'Genesis Sale Terminal', src: null, isNative: true }
         };
 
-        // TARGET IDENTIFICATION ADDRESS CONSTANTS
         const TOKEN_ADDR = "0x7BD58C1fa6fF742218933BA189367077717cf9D1";
-        const TREASURY_ADDR = "0x6C8106dD14CceC3c39BA09db57E84F44e6F83513";
-        const STAKING_ADDR = "0xE5642dB1B8da638b9A26AcfaB1b79Fd54c414A0B";
         const SALE_ADDR = "0x3E76D0c69c0499bFE3418Df540Ac3b64d4C4238C";
-        
         const RPC_URL = "https://sepolia.base.org"; 
         const CHAIN_ID_HEX = '0x14532'; 
         const GOAL = 15000000; 
         const END_DATE = new Date("2026-06-01T00:00:00").getTime(); 
 
-        // MINIFIED ABI ARRAYS TARGETING CORE FUNCTIONS
-        const ABI_ERC20 = [
-            "function balanceOf(address) view returns (uint256)",
-            "function allowance(address, address) view returns (uint256)",
-            "function approve(address, uint256) returns (bool)"
-        ]; 
-        const ABI_STAKING = [
-            "function balanceOf(address) view returns (uint256)",
-            "function earned(address) view returns (uint256)",
-            "function totalSupply() view returns (uint256)",
-            "function stake(uint256)",
-            "function withdraw(uint256)"
-        ];
         const ABI_SALE = ["function buyTokens(address _r) public payable"];
+        const ABI_ERC20 = ["function balanceOf(address) view returns (uint256)"]; 
 
         let activeWindows = {};
         let topZIndex = 30;
         
         let provider = null;
         let signer = null;
-        let tokenContract = null;
-        let stakingContract = null;
         let saleContract = null;
+        let tokenContract = null;
         let walletAddress = null;
         let currentChainId = null;
+        let lastCachedEth = "0.000";
+        let lastCachedTime = "0";
         
-        let cachedEthBalance = "0.000";
-        let cachedTimeBalance = "0";
-        let cachedTreasuryTokens = "0";
-        let cachedTreasuryEth = "0.000";
-        let cachedUserStaked = "0";
-        let cachedUserRewards = "0.00";
-        let cachedTotalStaked = "0";
-
         const publicProv = new ethers.JsonRpcProvider(RPC_URL);
 
         function initClock() {
@@ -510,13 +480,12 @@
                 }
 
                 signer = await provider.getSigner(); 
+                saleContract = new ethers.Contract(SALE_ADDR, ABI_SALE, signer); 
                 tokenContract = new ethers.Contract(TOKEN_ADDR, ABI_ERC20, signer); 
-                stakingContract = new ethers.Contract(STAKING_ADDR, ABI_STAKING, signer);
-                saleContract = new ethers.Contract(SALE_ADDR, ABI_SALE, signer);
 
                 metaMaskProvider.on('accountsChanged', (accounts) => { 
                     if (accounts.length === 0) disconnectWallet();
-                    else { walletAddress = accounts[0]; fetchBlockchainData(); }
+                    else { walletAddress = accounts[0]; updateAccountStats(); }
                 });
 
                 metaMaskProvider.on('chainChanged', (chainIdHex) => {
@@ -529,106 +498,39 @@
             } catch (err) { console.error(err); }
         }
 
-        // GLOBAL BLOCKCHAIN DATA READ FETCH MATRIX
-        async function fetchBlockchainData() {
-            try {
-                // Public Data (Fetches regardless of Metamask Connection)
-                const tcPub = new ethers.Contract(TOKEN_ADDR, ABI_ERC20, publicProv);
-                const scPub = new ethers.Contract(STAKING_ADDR, ABI_STAKING, publicProv);
-
-                const tBal = await tcPub.balanceOf(TREASURY_ADDR);
-                cachedTreasuryTokens = Math.floor(Number(ethers.formatEther(tBal))).toLocaleString();
-
-                const tEth = await publicProv.getBalance(TREASURY_ADDR);
-                cachedTreasuryEth = Number(ethers.formatEther(tEth)).toFixed(3);
-
-                const sTotal = await scPub.totalSupply();
-                cachedTotalStaked = Math.floor(Number(ethers.formatEther(sTotal))).toLocaleString();
-
-                // Connected Account Metrics
-                if (walletAddress && provider) {
-                    const ethBal = await provider.getBalance(walletAddress); 
-                    cachedEthBalance = Number(ethers.formatEther(ethBal)).toFixed(3); 
-                    
-                    const timeBal = await tokenContract.balanceOf(walletAddress); 
-                    cachedTimeBalance = Math.floor(Number(ethers.formatEther(timeBal))).toLocaleString(); 
-
-                    const userStakedBal = await stakingContract.balanceOf(walletAddress);
-                    cachedUserStaked = Math.floor(Number(ethers.formatEther(userStakedBal))).toLocaleString();
-
-                    const userEarnedRewards = await stakingContract.earned(walletAddress);
-                    cachedUserRewards = Number(ethers.formatEther(userEarnedRewards)).toFixed(2);
-
-                    // Sync the core Taskbar indicators
-                    document.getElementById('tb-eth-val').innerText = cachedEthBalance;
-                    document.getElementById('tb-time-val').innerText = cachedTimeBalance;
-                    
-                    // Native UI panel elements update
-                    const uEth = document.getElementById('userEth');
-                    const uTime = document.getElementById('userTime');
-                    if(uEth) uEth.innerText = cachedEthBalance + " ETH";
-                    if(uTime) uTime.innerText = cachedTimeBalance;
-                }
-
-                globalBroadcastWalletState();
-            } catch (e) {
-                console.error("Blockchain data acquisition loop exception:", e);
-            }
-        }
-
-        // SYNCHRONIZE ACTIVE DYNAMIC DOM SUB-WINDOWS W/ BLOCKCHAIN STATE
+        // BIND INTEGRATED APPLICATION DISPLAY ELEMENT PROPERTIES DYNAMICALLY
         function syncVirtualAppDOM(windowId) {
             const frame = document.getElementById(`win-${windowId}`);
             if (!frame) return;
 
+            const dots = frame.querySelectorAll('.sync-wallet-dot');
+            const texts = frame.querySelectorAll('.sync-wallet-text');
+            const times = frame.querySelectorAll('.sync-wallet-time');
+            const timeUsds = frame.querySelectorAll('.sync-wallet-time-usd');
+            const mask = frame.querySelector('#staking-disabled-mask');
+            const controls = frame.querySelector('#staking-active-controls');
+
             const isConnected = walletAddress !== null;
 
-            // Sync structural status badges inside the dynamic markup
-            frame.querySelectorAll('.sync-wallet-dot').forEach(d => d.className = `w-2 h-2 rounded-full ${isConnected ? 'bg-green-500' : 'bg-rose-500 animate-pulse'}`);
-            frame.querySelectorAll('.sync-wallet-text').forEach(t => {
+            dots.forEach(d => d.className = `w-2 h-2 rounded-full ${isConnected ? 'bg-green-500' : 'bg-rose-500 animate-pulse'}`);
+            texts.forEach(t => {
                 t.innerText = isConnected ? (walletAddress.slice(0,6) + "..." + walletAddress.slice(-4)) : "Disconnected";
-                t.className = isConnected ? "text-green-400 font-bold font-mono text-[10px]" : "text-slate-400 uppercase tracking-widest font-bold text-[10px]";
+                t.className = isConnected ? "text-green-400 font-bold font-mono" : "text-slate-400 uppercase tracking-widest font-bold text-[10px]";
             });
-            frame.querySelectorAll('.sync-wallet-time').forEach(tm => tm.innerText = isConnected ? cachedTimeBalance : "0");
+            times.forEach(tm => tm.innerText = isConnected ? lastCachedTime : "0");
             
-            frame.querySelectorAll('.sync-wallet-time-usd').forEach(tu => {
-                const parsedTime = parseFloat(cachedTimeBalance.replace(/,/g, '')) || 0;
-                tu.innerText = `$${(parsedTime * 0.0008 * 3250).toLocaleString(undefined, {minimumFractionDigits: 2})} USD VALUE`; // Using real 0.0008 price target
+            timeUsds.forEach(tu => {
+                const parsedTime = parseFloat(lastCachedTime.replace(/,/g, '')) || 0;
+                tu.innerText = `$${(parsedTime * 0.00015 * 3250).toLocaleString(undefined, {minimumFractionDigits: 2})} USD VALUE`;
             });
 
-            // Project Info Window Node Parsing
-            if (windowId === 'project-info') {
-                const infoTreasury = frame.querySelector('#info-treasury-bal');
-                const infoTreasuryUsd = frame.querySelector('#info-treasury-usd');
-                if (infoTreasury) infoTreasury.innerText = cachedTreasuryTokens;
-                if (infoTreasuryUsd) {
-                    const parsedTreasuryTokens = parseFloat(cachedTreasuryTokens.replace(/,/g, '')) || 0;
-                    infoTreasuryUsd.innerText = `$${(parsedTreasuryTokens * 0.0008 * 3250).toLocaleString(undefined, {maximumFractionDigits:0})} USD VALUE`;
-                }
+            if (mask) {
+                if (isConnected) mask.classList.add('hidden');
+                else mask.classList.remove('hidden');
             }
-
-            // Staking Window Node Parsing
-            if (windowId === 'chronos-staking') {
-                const mask = frame.querySelector('#staking-disabled-mask');
-                const controls = frame.querySelector('#staking-active-controls');
-                const poolTotal = frame.querySelector('#staking-pool-total');
-                const userStaked = frame.querySelector('#staking-user-staked');
-                const userRewards = frame.querySelector('#staking-user-rewards');
-
-                if (poolTotal) poolTotal.innerText = cachedTotalStaked;
-                if (userStaked) userStaked.innerText = isConnected ? cachedUserStaked : "0";
-                if (userRewards) userRewards.innerText = isConnected ? cachedUserRewards : "0.00";
-
-                if (mask) isConnected ? mask.classList.add('hidden') : mask.classList.remove('hidden');
-                if (controls) isConnected ? controls.classList.remove('hidden') : controls.classList.add('hidden');
-            }
-
-            // Treasury Window Node Parsing
-            if (windowId === 'chronos-treasury') {
-                const tToken = frame.querySelector('#treasury-token-holding');
-                const tEth = frame.querySelector('#treasury-eth-holding');
-                if (tToken) tToken.innerText = `${cachedTreasuryTokens} $TIME`;
-                if (tEth) tEth.innerText = `${cachedTreasuryEth} ETH`;
+            if (controls) {
+                if (isConnected) controls.classList.remove('hidden');
+                else controls.classList.add('hidden');
             }
         }
 
@@ -638,39 +540,6 @@
                     syncVirtualAppDOM(windowId);
                 }
             });
-        }
-
-        // EXPLICIT STAKING PROTOCOL EXECUTION STRATEGY
-        async function executeStakingAction(isDeposit) {
-            const amtEl = document.getElementById('staking-input-amt');
-            if(!amtEl || !amtEl.value || amtEl.value <= 0) return;
-            
-            try {
-                const rawValue = ethers.parseEther(amtEl.value);
-                if (isDeposit) {
-                    const currentAllowance = await tokenContract.allowance(walletAddress, STAKING_ADDR);
-                    if (currentAllowance < rawValue) {
-                        const approvalTx = await tokenContract.approve(STAKING_ADDR, ethers.MaxUint256);
-                        await approvalTx.wait();
-                    }
-                    const tx = await stakingContract.stake(rawValue);
-                    await tx.wait();
-                } else {
-                    const tx = await stakingContract.withdraw(rawValue);
-                    await tx.wait();
-                }
-                amtEl.value = "";
-                await fetchBlockchainData();
-            } catch (e) { console.error("Staking pipeline exception rejected:", e); }
-        }
-
-        async function executeStakingCompound() {
-            try {
-                // Compounds rewards by executing a zero stake interaction triggers rewards harvest
-                const tx = await stakingContract.stake(0);
-                await tx.wait();
-                await fetchBlockchainData();
-            } catch (e) { console.error("Compounding exception loop executed:", e); }
         }
 
         function openWindow(appId) {
@@ -862,7 +731,32 @@
             document.getElementById('taskbarConnectBtn').classList.add('hidden');
             document.getElementById('taskbar-metrics-view').classList.remove('hidden');
 
-            await fetchBlockchainData();
+            await updateAccountStats();
+        }
+
+        async function updateAccountStats() {
+            try {
+                if(!provider || !walletAddress) return;
+                const ethBal = await provider.getBalance(walletAddress); 
+                lastCachedEth = Number(ethers.formatEther(ethBal)).toFixed(3); 
+                
+                lastCachedTime = "0";
+                if (tokenContract) {
+                    const timeBal = await tokenContract.balanceOf(walletAddress); 
+                    lastCachedTime = Math.floor(Number(ethers.formatEther(timeBal))).toLocaleString(); 
+                }
+
+                const uEth = document.getElementById('userEth');
+                const uTime = document.getElementById('userTime');
+                if(uEth) uEth.innerText = lastCachedEth + " ETH";
+                if(uTime) uTime.innerText = lastCachedTime;
+
+                document.getElementById('tb-eth-val').innerText = lastCachedEth;
+                document.getElementById('tb-time-val').innerText = lastCachedTime;
+
+                // Sync context state indicators across active modules natively
+                globalBroadcastWalletState();
+            } catch (e) { console.error(e); }
         }
 
         async function loadGlobalPresaleStats() {
@@ -886,7 +780,7 @@
             try {
                 const tx = await saleContract.buyTokens("0x0000000000000000000000000000000000000000", { value: ethers.parseEther(inputVal) });
                 await tx.wait();
-                await fetchBlockchainData();
+                updateAccountStats();
                 loadGlobalPresaleStats();
             } catch (err) { console.error(err); }
         }
@@ -913,8 +807,7 @@
         }
 
         function disconnectWallet() {
-            walletAddress = null; cachedEthBalance = "0.000"; cachedTimeBalance = "0";
-            cachedUserStaked = "0"; cachedUserRewards = "0.00";
+            walletAddress = null; lastCachedEth = "0.000"; lastCachedTime = "0";
             
             const connView = document.getElementById('wallet-connected-view');
             const discView = document.getElementById('wallet-disconnected-view');
@@ -934,16 +827,12 @@
             }
         });
 
-        window.onload = async () => {
+        window.onload = () => {
             initClock();
             setInterval(updateTimer, 1000); 
             updateTimer(); 
             lucide.createIcons();
-            
-            // Core initial loop triggers public data fetches right away
-            await fetchBlockchainData();
-            setInterval(fetchBlockchainData, 10000); // Automation heartbeat syncs state logs
-            
+            // Automatically launch Project Info module workspace default state
             openWindow('project-info');
         };
     </script>
